@@ -6,7 +6,73 @@ html, * {
 
 
 body {
+    
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-rows: 10vmin 40vmin 40vmin;
+    background: radial-gradient(#18D010, #0C6A08);
+}
+
+body *{
+    font-family: 'Farro', sans-serif;
+    color: white;
+    text-shadow: 1px 1px 2px black;
+}
+
+h1 {
+    grid-column: span 3;
+    text-align: center;
+}
+
+#dealer-box {
+    display: grid;
+    grid-column: span 2;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 10vmin;
+    text-align: center;
+}
+
+#money {
+    display: flex;
+    text-align: center;
+    align-items: center;
+}
+
+#bet-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#bet-box * {
+    margin: 10px;
+}
+
+#dtotal {
+    grid-column: span 2;
+}
+
+#action-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    
+}
+#action-box * {
+    margin: 10px;
+}
+
+#player-box {
+    display:grid;
+    grid-column: span 2;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 10vmin 1fr;
+    text-align: center;
+
+}
+
+#ptotal {
+    grid-column: span 2;
 }

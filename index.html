@@ -6,6 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Black Jack</title>
     <script defer src="js/main.js">    </script>
+    <style>
+            @import url('https://fonts.googleapis.com/css?family=Farro&display=swap');
+            </style>
     <link rel="stylesheet" href="css/main.css">
 </head>
 
@@ -14,8 +17,8 @@
     <h1>BlackJack</h1>
 
     <div id="dealer-box">
-        <div id="dcard1">dealercard<img></div> 
-        <div id="dcard2">dealercard<img></div> 
+        <div id="dcard1"><img src="card-deck-css/images/backs/red.svg"></div> 
+        <div id="dcard2"><img src="card-deck-css/images/backs/red.svg"></div> 
         <div id="dtotal"><h2>Dealer Number</h2></div>
     </div>
 
@@ -24,21 +27,23 @@
         <div id='5'>$5<img></div> 
         <div id='10'>$10<img></div> 
         <div id='20'>$20<img></div> 
+        <div id="money">Money = 100</div>
     </div>
 
+
+
+    <div id='player-box'>
+        <div id='ptotal'><h2>Player Number</h2></div>
+        <div id="pcard1"><img src="card-deck-css/images/backs/blue.svg"></div> 
+        <div id="pcard2"><img src="card-deck-css/images/backs/blue.svg"></div> 
+    </div>
+    
     <div id='action-box'>
         <div id='stay'><img>Stay</div> 
         <div id='hit'><img>Hit</div> 
         <div id='start'><img>Start</div> 
     </div>
 
-
-    <div id='player-box'>
-        <div id='ptotal'><h2>Player Number</h2></div>
-        <div id="dcard1">Player Card<img></div> 
-        <div id="dcard2">Player Card<img></div> 
-    </div>
-    
 
     
 </body>
