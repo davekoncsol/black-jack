@@ -2,40 +2,45 @@
 ///*----- constants -----*/
 
 //sounds
+let scores, money, bet, winner, templateDealer, templatePlayer;
 
-// // card lookup
+scores = {
+    player: 0,
+    dealer: 0
+}
 
-// const cardValue = {
-//     // ace: {
-//     // class: 'dA',
-//     // value: 11
-//     // },
+let playerCards = {
+    card1: 'back-blue',
+    card2: 'back-blue',
 
-//     // dA, cA: {
-//     //     value: 11
-//     // },
-    
 
-// };
+}
 
+let dealerCards = {
+    card1: 'back-red',
+    card2: 'back-red',
+
+}
+
+let idx = 2;
 
 
 var newdeck = [];
 
-let suits = ['s', 'h','c', 'd'];
-let values = ['A','K', 'Q', 'J', '10', '09', '08', '07', '06', '05', '04', '03', '02' ];
+let suits = ['s', 'h', 'c', 'd'];
+let values = ['A', 'K', 'Q', 'J', '10', '09', '08', '07', '06', '05', '04', '03', '02'];
 
 createDeck();
 
-function createDeck(){
+function createDeck() {
     var deck = new Array;
-    for(var s = 0; s <suits.length; s++){
-        for(var v = 0; v < values.length; v++){
-            var card = {suit: suits[s], value: values[v]};
+    for (var s = 0; s < suits.length; s++) {
+        for (var v = 0; v < values.length; v++) {
+            var card = { suit: suits[s], value: values[v] };
             deck.push(card);
         }
     }
-    
+
     newdeck = deck
 };
 
@@ -46,11 +51,13 @@ function createDeck(){
 // money, player/dealer info, winner,
 // card values
 
-let scores, money, bet, winner;
+
 
 let playerHand = [];
 
 let dealerHand = [];
+
+
 
 // let deck = [];
 
@@ -74,7 +81,7 @@ const scoreEl = {
 const cardEl = {
     player: document.getElementById('player-box'),
     dealer: document.getElementById('dealer-box'),
-  
+
 }
 
 const betEl = document.getElementById('bet');
@@ -108,50 +115,43 @@ document.getElementById('20').addEventListener('click', bet20);
 
 init();
 
+
 function init() {
     money = 100;
     bet = 0;
     winner = null;
-    scores = {
-        player: 0,
-        dealer: 0
-    }
-    playerCards = {
-        card1: 'back-blue',
-        card2: 'back-blue',
-        
-    }
 
-    dealerCards = {
-        card1: 'back-red',
-        card2: 'back-red',
-    }
+start();
 
-  
+
 
     render();
 
 
 }
 
-function getPlayerScore(){
-    for (let card in playerCards){
-        if (playerCards[card].length >= 3){
+function getPlayerScore() {
+    scores.player = 0;
+    for (let card in playerCards) {
+        if (playerCards[card].length === 3) {
             scores.player += parseInt(playerCards[card].slice(1));
-        } else if (playerCards[card].length < 3 && !playerCards[card].includes('A')){
+            
+        } else if (playerCards[card].length < 3 && !playerCards[card].includes('A')) {
             scores.player += 10;
+            
         } else if (playerCards[card].includes('A')) {
             scores.player += 11;
+            
 
-        }
+        } 
         ;
-    }
+    } 
 };
-function getDealerScore(){
-    for (let card in dealerCards){
-        if (dealerCards[card].length >= 3){
+function getDealerScore() {
+    for (let card in dealerCards) {
+        if (dealerCards[card].length === 3) {
             scores.dealer += parseInt(dealerCards[card].slice(1));
-        } else if (dealerCards[card].length < 3 && !dealerCards[card].includes('A')){
+        } else if (dealerCards[card].length < 3 && !dealerCards[card].includes('A')) {
             scores.dealer += 10;
         } else if (dealerCards[card].includes('A')) {
             scores.dealer += 11;
@@ -164,35 +164,27 @@ function getDealerScore(){
 
 //render
 //shows the results as well as the bet and money in the bank
-function render(){
+function render() {
     moneyEl.textContent = `Money = $${money}`;
     betEl.textContent = `Bet = $${bet}`;
+    cardEl.player.innerHTML = templatePlayer;
+    cardEl.dealer.innerHTML = templateDealer;
+    scoreEl.dealer.textContent = `Dealer Number ${scores.dealer}`
+    scoreEl.player.textContent = `Player Number ${scores.player}`
 
-    
-    for (let pcard in playerCards){
-       console.log( playerCards[pcard]);
-       cardEl.player.innerHTML += `<img class="card shadow ${playerCards[pcard]}"> 
-       `
-    }
-    for (let dcard in dealerCards){
-       console.log( dealerCards[dcard]);
-       cardEl.dealer.innerHTML += `<img class="card shadow ${dealerCards[dcard]}"> 
-       `
-    }
 
-    scoreEl.dealer.textContent =`Dealer Number ${scores.dealer}`
-    scoreEl.player.textContent =`Player Number ${scores.player}`
-    // let templateDealer = ` <div class="card shadow ${dealerCards.card1}" id="dcard1"><img></div> 
-    // <div class="card shadow ${dealerCards.card2}" id="dcard2"><img></div> 
-    // <div id="dscore">Dealer Number ${scores.dealer} </div>
-    // `;
+    // for (let pcard in playerCards){
+    //    console.log( playerCards[pcard]);
+    //    cardEl.player.innerHTML += `<img class="card shadow ${playerCards[pcard]}"> 
+    //    `
+    // }
+    // for (let dcard in dealerCards){
+    //    console.log( dealerCards[dcard]);
+    //    cardEl.dealer.innerHTML += `<img class="card shadow ${dealerCards[dcard]}"> 
+    //    `
+    // }
 
-    // let templatePlayer = `<div id='pscore'>Player Number ${scores.player}</div>
-    // <div class="card shadow ${playerCards.card1}" id="pcard1"><img></div> 
-    // <div class="card shadow ${playerCards.card2}" id="pcard2"><img></div> 
-    // `;
-    // cardEl.player.innerHTML = templatePlayer;
-    // cardEl.dealer.innerHTML = templateDealer;
+
 
 
 };
@@ -201,7 +193,9 @@ function render(){
 //identifies winner is dealer or player
 //if dealer wins, players loses money, if player wins, player wins money
 
-
+// function getWinner(){
+//     if (scores.player )
+// }
 
 //start
 //the bet is set let the game BEGIN!
@@ -211,37 +205,40 @@ function render(){
 //allows user to place bet
 function bet5() {
     console.log('bet 5!!')
-    if (money >= 5){
-    bet += 5;
-    money -= 5;
-    render();}
-     return;
-    };
+    if (money >= 5) {
+        bet += 5;
+        money -= 5;
+        render();
+    }
+    return;
+};
 function bet10() {
     console.log('bet 10 clicked')
-    if (money >= 10){
+    if (money >= 10) {
         bet += 10;
         money -= 10;
-        render();}
-         return;
-        };
+        render();
+    }
+    return;
+};
 
 
 function bet20() {
     console.log('bet 20 clicked')
-    if (money >= 20){
+    if (money >= 20) {
         bet += 20;
         money -= 20;
-        render();}
-         return;
-        };
+        render();
+    }
+    return;
+};
 
 
-function chickenDinner(){
+function chickenDinner() {
     money += bet * 2;
     bet = 0;
-    render ();
-    
+    render();
+
 }
 
 function loser() {
@@ -249,63 +246,87 @@ function loser() {
     render();
 }
 
-function dealerAction(){
+function dealerAction() {
 
 }
 
 //player hit/stay
 
-function stay(){
+function stay() {
     console.log('stay then the dealer goes. ');
 }
-function hit(){
+function hit() {
     
+    playerCards.card3 = playerHand[idx].suit + playerHand[idx].value;
+    templatePlayer += `<div class="card shadow ${playerCards.card3}" id="pcard2"><img></div>`
+    console.log(templatePlayer);
+   idx +=  1;
     
-    
+    console.log(idx);
     getPlayerScore();
-render();
+    render();
+
 }
-function start(){
+function start() {
     
+         templateDealer = ` <div class="card shadow ${dealerCards.card1}" id="dcard1"><img></div> 
+            <div class="card shadow ${dealerCards.card2}" id="dcard2"><img></div> 
+
+            <div id="dscore">Dealer Number ${scores.dealer} </div>
+`;
+
+templatePlayer = `
+
+<div class="card shadow ${playerCards.card1}" id="pcard1"><img></div> 
+<div class="card shadow ${playerCards.card2}" id="pcard2"><img></div> 
+`
+
+   
+
+
+        ;
+    
+
     shuffle(newdeck);
-    if(playerHand.length < 10){
-    for (i = 0; i <= 25; i++) {
-        // console.log(newdeck[i]);
-        playerHand.push(newdeck[i]);
-        
+    if (playerHand.length < 10) {
+        for (i = 0; i <= 25; i++) {
+            // console.log(newdeck[i]);
+            playerHand.push(newdeck[i]);
+
+        }
+        for (i = 26; i <= 51; i++) {
+            dealerHand.push(newdeck[i]);
+        }
     }
-    for (i = 26; i <=51; i++){
-        dealerHand.push(newdeck[i]);
-    }
+    else { return }
+
+    dealCards();
+render();    
+
 }
-    else { return}
-        
-        dealCards();
-        
-    }
 
 
 
- 
-function shuffle(){
-    newdeck.sort( () => Math.random() - 0.5);
-    
+
+function shuffle() {
+    newdeck.sort(() => Math.random() - 0.5);
+
 }
 
 //for loops for innerHTML?
 
 
-function dealCards(){
-    
+function dealCards() {
+
 
     playerCards.card1 = playerHand[0].suit + playerHand[0].value;
     playerCards.card2 = playerHand[1].suit + playerHand[1].value;
     dealerCards.card1 = dealerHand[0].suit + dealerHand[0].value;
     dealerCards.card2 = dealerHand[1].suit + dealerHand[1].value;
 
-    
-getDealerScore();
-getPlayerScore();
+
+    getDealerScore();
+    getPlayerScore();
 
     render();
 }
