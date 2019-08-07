@@ -2,7 +2,7 @@
 ///*----- constants -----*/
 
 //sounds
-let scores, money, bet, winner, templateDealer, templatePlayer;
+let scores, money, bet, winner;
 
 scores = {
     player: 0,
@@ -22,13 +22,17 @@ let dealerCards = {
 
 }
 
-let idx = 2;
-
+let idx = 3;
+let dealeridx = 3;
 
 var newdeck = [];
 
 let suits = ['s', 'h', 'c', 'd'];
 let values = ['A', 'K', 'Q', 'J', '10', '09', '08', '07', '06', '05', '04', '03', '02'];
+
+var templateDealer = ``;
+
+var templatePlayer = ``;
 
 createDeck();
 
@@ -121,7 +125,7 @@ function init() {
     bet = 0;
     winner = null;
 
-start();
+
 
 
 
@@ -148,6 +152,7 @@ function getPlayerScore() {
     } 
 };
 function getDealerScore() {
+    scores.dealer = 0;
     for (let card in dealerCards) {
         if (dealerCards[card].length === 3) {
             scores.dealer += parseInt(dealerCards[card].slice(1));
@@ -167,11 +172,15 @@ function getDealerScore() {
 function render() {
     moneyEl.textContent = `Money = $${money}`;
     betEl.textContent = `Bet = $${bet}`;
-    cardEl.player.innerHTML = templatePlayer;
-    cardEl.dealer.innerHTML = templateDealer;
+    
     scoreEl.dealer.textContent = `Dealer Number ${scores.dealer}`
     scoreEl.player.textContent = `Player Number ${scores.player}`
+    cardEl.player.innerHTML = `<div class="card shadow ${playerCards.card1}" id="pcard1"><img></div> 
+    <div class="card shadow ${playerCards.card2}" id="pcard2"><img></div> ` + templatePlayer;
+    cardEl.dealer.innerHTML = `<div class="card shadow ${dealerCards.card1}" id="dcard1"><img></div> 
+    <div class="card shadow ${dealerCards.card2}" id="dcard2"><img></div>` + templateDealer;
 
+    
 
     // for (let pcard in playerCards){
     //    console.log( playerCards[pcard]);
@@ -193,9 +202,20 @@ function render() {
 //identifies winner is dealer or player
 //if dealer wins, players loses money, if player wins, player wins money
 
-// function getWinner(){
-//     if (scores.player )
-// }
+function getWinner(){
+    if (scores.dealer === 21){
+        loser();
+    } else if (scores.player === 21){
+        chickenDinner(); 
+    } else if (scores.player > 21){
+        loser(); alert('BUUUUUUSSST');
+
+    }
+
+
+    }
+
+
 
 //start
 //the bet is set let the game BEGIN!
@@ -238,15 +258,33 @@ function chickenDinner() {
     money += bet * 2;
     bet = 0;
     render();
+    alert('WINNER WINNER CHICKEN DINNER');
 
 }
 
 function loser() {
     bet = 0;
     render();
+    alert('Casinos werent built on winners!');
 }
 
 function dealerAction() {
+    while (scores.dealer < 17){
+        dealerHit();
+    } if(scores.dealer === 21){
+        loser();
+   } else if (scores.dealer > 21){
+        chickenDinner();
+
+    } else if(scores.dealer > scores.player){
+        loser();
+   } else if(scores.dealer >= 17 && scores.dealer < scores.player){
+       chickenDinner();
+       
+   } 
+   else {
+       loser();
+   }
 
 }
 
@@ -254,38 +292,40 @@ function dealerAction() {
 
 function stay() {
     console.log('stay then the dealer goes. ');
+    dealerAction();
 }
 function hit() {
-    
-    playerCards.card3 = playerHand[idx].suit + playerHand[idx].value;
-    templatePlayer += `<div class="card shadow ${playerCards.card3}" id="pcard2"><img></div>`
+
+    playerCards['card'+idx] = playerHand[idx].suit + playerHand[idx].value;
+    templatePlayer += `<div class="card shadow ${playerCards['card'+idx]}" id="pcard2"><img></div>`
     console.log(templatePlayer);
    idx +=  1;
     
     console.log(idx);
     getPlayerScore();
     render();
+    getWinner();
 
 }
+function dealerHit() {
+
+    dealerCards['card'+dealeridx] = dealerHand[dealeridx].suit + dealerHand[dealeridx].value;
+    templateDealer += `<div class="card shadow ${dealerCards['card'+dealeridx.toString()]}" id="dcard2"><img></div>`
+    console.log(templateDealer);
+   dealeridx +=  1;
+    
+    console.log(idx);
+    getDealerScore();
+    render();
+    getWinner();
+
+}
+
+
+
 function start() {
-    
-         templateDealer = ` <div class="card shadow ${dealerCards.card1}" id="dcard1"><img></div> 
-            <div class="card shadow ${dealerCards.card2}" id="dcard2"><img></div> 
 
-            <div id="dscore">Dealer Number ${scores.dealer} </div>
-`;
-
-templatePlayer = `
-
-<div class="card shadow ${playerCards.card1}" id="pcard1"><img></div> 
-<div class="card shadow ${playerCards.card2}" id="pcard2"><img></div> 
-`
-
-   
-
-
-        ;
-    
+ 
 
     shuffle(newdeck);
     if (playerHand.length < 10) {
@@ -301,7 +341,12 @@ templatePlayer = `
     else { return }
 
     dealCards();
-render();    
+
+        
+
+
+render();   
+getWinner(); 
 
 }
 
@@ -331,7 +376,13 @@ function dealCards() {
     render();
 }
 
+function nextRound(){
+    scores.player = 0;
+    scores.dealer = 0;
+    cardEl.player.innerHTML = templatePlayer;
+    cardEl.dealer.innerHTML = templateDealer;
 
+}
 
 //for each 
 // function getValues(obj, objName){
