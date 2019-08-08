@@ -1,9 +1,11 @@
 ///*----- constants -----*/
 
 //sounds
+
+
 let scores, money, bet;
 
-let placeBet = true;
+
 
 scores = {
     player: 0,
@@ -26,6 +28,7 @@ let dealeridx = 3;
 let canHit = false;
 let deal = true;
 let winner = false;
+let placeBet = true;
 
 var newdeck = [];
 
@@ -161,6 +164,30 @@ function render() {
     cardEl.dealer.innerHTML = `<div class="card shadow ${dealerCards.card1}" id="dcard1"><img></div> 
     <div class="card shadow ${dealerCards.card2}" id="dcard2"><img></div>` + templateDealer;
 
+    if (placeBet === false){
+        document.getElementById('5').style.display = 'none';
+    } else {document.getElementById('5').style.display = 'flex'};
+    if (placeBet === false){
+        document.getElementById('10').style.display = 'none';
+    } else {document.getElementById('10').style.display = 'flex'};
+    if (placeBet === false){
+        document.getElementById('20').style.display = 'none';
+    } else {document.getElementById('20').style.display = 'flex'};
+    
+    if (canHit === false){
+        document.getElementById('hit').style.display = 'none';
+    } else {document.getElementById('hit').style.display = 'flex'};
+    if (canHit === true && winner === false){
+        document.getElementById('stay').style.display = 'flex';
+    } else {document.getElementById('stay').style.display = 'none'};
+    if (winner === true){
+        document.getElementById('next').style.display = 'flex';
+    } else {document.getElementById('next').style.display = 'none'};
+    if (deal === true){
+        document.getElementById('deal').style.display = 'flex';
+    } else {document.getElementById('deal').style.display = 'none'};
+
+   
 
 };
 //winner
@@ -231,7 +258,10 @@ function loser() {
     winner = true;
     canHit = false;
     render();
-    alert('Casinos werent built on winners!');
+    if (money === 0){
+       document.querySelector('body').innerHTML = `<h1>You LOST EVERYTHING! You could have saved an animal</h1><iframe width="560" height="315" src="https://www.youtube.com/embed/ftJSmtQk8pc?autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
+    };
+    
 }
 
 function dealerAction() {
@@ -259,7 +289,10 @@ function dealerAction() {
 
 function stay() {
     console.log('stay then the dealer goes. ');
-    if(canHit === true){
+    if(canHit === true && winner === false){
+     dealerCards.card2 = dealerHand[1 + cardPosition].suit + dealerHand[1 + cardPosition].value;
+     getDealerScore();
+     render();
     dealerAction();
 } return}
 
@@ -277,7 +310,7 @@ function hit() {
 } return}
 
 function dealerHit() {
-
+    
     dealerCards['card' + dealeridx] = dealerHand[dealeridx].suit + dealerHand[dealeridx].value;
     templateDealer += `<div class="card shadow ${dealerCards['card'+dealeridx.toString()]}" id="dcard2"><img></div>`
     console.log(templateDealer);
@@ -307,6 +340,7 @@ function start() {
     placeBet = false;
     dealCards();
     deal = false;
+    document.getElementById('start').style.display = 'none'; 
     render();
     getWinner();
 
@@ -323,12 +357,14 @@ function dealCards() {
     playerCards.card1 = playerHand[0 + cardPosition].suit + playerHand[0 + cardPosition].value;
     playerCards.card2 = playerHand[1 + cardPosition].suit + playerHand[1 + cardPosition].value;
     dealerCards.card1 = dealerHand[0 + cardPosition].suit + dealerHand[0 + cardPosition].value;
-    dealerCards.card2 = dealerHand[1 + cardPosition].suit + dealerHand[1 + cardPosition].value;
+    
     cardPosition += 1;
     placeBet = false;
     canHit = true;
+    deal = false;
     getDealerScore();
     getPlayerScore();
+    
     render();
 } else return}
 

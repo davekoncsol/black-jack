@@ -10,7 +10,8 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 10vmin 40vmin 10vmin 40vmin;
-    background: radial-gradient(#18D010, #0C6A08);
+    background-color:  #0C6A08;
+    background-image: url(/images/felt.png);
 }
 
 body *{
