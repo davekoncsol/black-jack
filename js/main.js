@@ -183,7 +183,7 @@ function render() {
     if (winner === true){
         document.getElementById('next').style.display = 'flex';
     } else {document.getElementById('next').style.display = 'none'};
-    if (deal === true){
+    if (deal === true && bet > 0){
         document.getElementById('deal').style.display = 'flex';
     } else {document.getElementById('deal').style.display = 'none'};
 
@@ -257,6 +257,7 @@ function loser() {
     bet = 0;
     winner = true;
     canHit = false;
+    alert('you lost');
     render();
     if (money === 0){
        document.querySelector('body').innerHTML = `<h1>You LOST EVERYTHING! You could have saved an animal</h1><iframe width="560" height="315" src="https://www.youtube.com/embed/ftJSmtQk8pc?autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
