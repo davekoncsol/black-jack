@@ -23,7 +23,7 @@ let dealerCards = {
 }
 
 let idx = 3;
-let cardPosition =0;
+let cardPosition = 0;
 let dealeridx = 3;
 let canHit = false;
 let deal = true;
@@ -129,10 +129,10 @@ function getPlayerScore() {
             scores.player += 10;
 
         } else if (playerCards[card].includes('A')) {
-            if (scores.player <= 10){
-            scores.player += 11;
-            } else  scores.player += 1;       
-    
+            if (scores.player <= 10) {
+                scores.player += 11;
+            } else scores.player += 1;
+
 
         };
     }
@@ -146,9 +146,9 @@ function getDealerScore() {
         } else if (dealerCards[card].length < 3 && !dealerCards[card].includes('A')) {
             scores.dealer += 10;
         } else if (dealerCards[card].includes('A')) {
-            if(scores.dealer <= 10){
-            scores.dealer += 11;
-            } else  scores.dealer += 1
+            if (scores.dealer <= 10) {
+                scores.dealer += 11;
+            } else scores.dealer += 1
         };
     }
 };
@@ -166,30 +166,44 @@ function render() {
     cardEl.dealer.innerHTML = `<div class="card shadow ${dealerCards.card1}" id="dcard1"><img></div> 
     <div class="card shadow ${dealerCards.card2}" id="dcard2"><img></div>` + templateDealer;
 
-    if (placeBet === false){
+    if (placeBet === false) {
         document.getElementById('five').style.display = 'none';
-    } else {document.getElementById('five').style.display = 'flex'};
-    if (placeBet === false){
+    } else {
+        document.getElementById('five').style.display = 'flex'
+    };
+    if (placeBet === false) {
         document.getElementById('ten').style.display = 'none';
-    } else {document.getElementById('ten').style.display = 'flex'};
-    if (placeBet === false){
+    } else {
+        document.getElementById('ten').style.display = 'flex'
+    };
+    if (placeBet === false) {
         document.getElementById('twenty').style.display = 'none';
-    } else {document.getElementById('twenty').style.display = 'flex'};
-    
-    if (canHit === false){
-        document.getElementById('hit').style.display = 'none';
-    } else {document.getElementById('hit').style.display = 'flex'};
-    if (canHit === true && winner === false){
-        stayButton.style.display = 'flex';
-    } else {stayButton.style.display = 'none'};
-    if (winner === true){
-        document.getElementById('next').style.display = 'flex';
-    } else {document.getElementById('next').style.display = 'none'};
-    if (deal === true && bet > 0){
-        document.getElementById('deal').style.display = 'flex';
-    } else {document.getElementById('deal').style.display = 'none'};
+    } else {
+        document.getElementById('twenty').style.display = 'flex'
+    };
 
-   
+    if (canHit === false) {
+        document.getElementById('hit').style.display = 'none';
+    } else {
+        document.getElementById('hit').style.display = 'flex'
+    };
+    if (canHit === true && winner === false) {
+        stayButton.style.display = 'flex';
+    } else {
+        stayButton.style.display = 'none'
+    };
+    if (winner === true) {
+        document.getElementById('next').style.display = 'flex';
+    } else {
+        document.getElementById('next').style.display = 'none'
+    };
+    if (deal === true && bet > 0) {
+        document.getElementById('deal').style.display = 'flex';
+    } else {
+        document.getElementById('deal').style.display = 'none'
+    };
+
+
 
 };
 //winner
@@ -213,36 +227,42 @@ function getWinner() {
 //allows user to place bet
 function bet5() {
     console.log('bet 5!!')
-    while(placeBet === true){
-    if (money >= 5) {
-        bet += 5;
-        money -= 5;
-        render();
+    while (placeBet === true) {
+        if (money >= 5) {
+            bet += 5;
+            money -= 5;
+            render();
+        }
+        return;
     }
-    return;
-} return}
+    return
+}
 
 function bet10() {
     console.log('bet 10 clicked')
-    while(placeBet === true){
-    if (money >= 10) {
-        bet += 10;
-        money -= 10;
-        render();
+    while (placeBet === true) {
+        if (money >= 10) {
+            bet += 10;
+            money -= 10;
+            render();
+        }
+        return;
     }
-    return;
-} return}
+    return
+}
 
 function bet20() {
     console.log('bet 20 clicked')
-    while(placeBet === true){
-    if (money >= 20) {
-        bet += 20;
-        money -= 20;
-        render();
+    while (placeBet === true) {
+        if (money >= 20) {
+            bet += 20;
+            money -= 20;
+            render();
+        }
+        return;
     }
-    return;
-} return}
+    return
+}
 
 
 function chickenDinner() {
@@ -261,14 +281,14 @@ function loser() {
     canHit = false;
     alert('you lost');
     render();
-    if (money === 0){
-       document.querySelector('body').innerHTML = `<h1>You LOST EVERYTHING! You could have saved an animal</h1>`
-       setTimeout(function(){
-        window.open("https://www.youtube.com/watch?v=03y-eMIXYpQ");
+    if (money === 0) {
+        document.querySelector('body').innerHTML = `<h1>You LOST EVERYTHING! You could have saved an animal</h1>`
+        setTimeout(function () {
+            window.open("https://www.youtube.com/watch?v=03y-eMIXYpQ");
 
-       }, 3000);
+        }, 3000);
     };
-    
+
 }
 
 function dealerAction() {
@@ -278,12 +298,12 @@ function dealerAction() {
     while (winner === false && scores.dealer < 17) {
         dealerHit();
     }
-     if (scores.dealer === 21) {
+    if (scores.dealer === 21) {
         loser();
     } else if (scores.dealer > 21) {
         chickenDinner();
 
-    }  else if (scores.dealer >= 17 && scores.dealer < scores.player) {
+    } else if (scores.dealer >= 17 && scores.dealer < scores.player) {
         chickenDinner();
 
     } else {
@@ -296,28 +316,32 @@ function dealerAction() {
 
 function stay() {
     console.log('stay then the dealer goes. ');
-    if(canHit === true && winner === false){
-     dealerCards.card2 = dealerHand[1 + cardPosition].suit + dealerHand[1 + cardPosition].value;
-     getDealerScore();
-     render();
-    dealerAction();
-} return}
+    if (canHit === true && winner === false) {
+        dealerCards.card2 = dealerHand[1 + cardPosition].suit + dealerHand[1 + cardPosition].value;
+        getDealerScore();
+        render();
+        dealerAction();
+    }
+    return
+}
 
 function hit() {
-    if(canHit === true){
-    playerCards['card' + idx] = playerHand[idx].suit + playerHand[idx].value;
-    templatePlayer += `<div class="card shadow ${playerCards['card'+idx]}" id="pcard2"><img></div>`
-    console.log(templatePlayer);
-    idx += 1;
+    if (canHit === true) {
+        playerCards['card' + idx] = playerHand[idx].suit + playerHand[idx].value;
+        templatePlayer += `<div class="card shadow ${playerCards['card'+idx]}" id="pcard2"><img></div>`
+        console.log(templatePlayer);
+        idx += 1;
 
-    console.log(idx);
-    getPlayerScore();
-    render();
-    getWinner();
-} return}
+        console.log(idx);
+        getPlayerScore();
+        render();
+        getWinner();
+    }
+    return
+}
 
 function dealerHit() {
-    
+
     dealerCards['card' + dealeridx] = dealerHand[dealeridx].suit + dealerHand[dealeridx].value;
     templateDealer += `<div class="card shadow ${dealerCards['card'+dealeridx.toString()]}" id="dcard2"><img></div>`
     console.log(templateDealer);
@@ -347,7 +371,7 @@ function start() {
     placeBet = false;
     dealCards();
     deal = false;
-    document.getElementById('start').style.display = 'none'; 
+    document.getElementById('start').style.display = 'none';
     render();
     getWinner();
 
@@ -360,25 +384,26 @@ function shuffle() {
 
 
 function dealCards() {
-    if(deal === true){
-    playerCards.card1 = playerHand[0 + cardPosition].suit + playerHand[0 + cardPosition].value;
-    playerCards.card2 = playerHand[1 + cardPosition].suit + playerHand[1 + cardPosition].value;
-    dealerCards.card1 = dealerHand[0 + cardPosition].suit + dealerHand[0 + cardPosition].value;
-    
-    cardPosition += 1;
-    placeBet = false;
-    canHit = true;
-    deal = false;
-    getDealerScore();
-    getPlayerScore();
-    
-    render();
-} else return}
+    if (deal === true) {
+        playerCards.card1 = playerHand[0 + cardPosition].suit + playerHand[0 + cardPosition].value;
+        playerCards.card2 = playerHand[1 + cardPosition].suit + playerHand[1 + cardPosition].value;
+        dealerCards.card1 = dealerHand[0 + cardPosition].suit + dealerHand[0 + cardPosition].value;
+
+        cardPosition += 1;
+        placeBet = false;
+        canHit = true;
+        deal = false;
+        getDealerScore();
+        getPlayerScore();
+
+        render();
+    } else return
+}
 
 function nextRound() {
-    while(winner === false){
+    while (winner === false) {
         return;
-    } 
+    }
     winner = false;
     scores.player = 0;
     scores.dealer = 0;
@@ -390,7 +415,7 @@ function nextRound() {
         card1: 'back-blue',
         card2: 'back-blue',
     }
-    
+
     dealerCards = {
         card1: 'back-red',
         card2: 'back-red',
@@ -399,7 +424,7 @@ function nextRound() {
     deal = true;
     render();
 
-  
+
 }
 
 
