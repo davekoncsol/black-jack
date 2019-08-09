@@ -4,6 +4,7 @@
 
 
 ## How To Play 
+<a href="https://davekoncsol.github.io/black-jack/"> Click Here To Play</a>
 <p> Bet some money, then click start and the first hand will be dealt. After that, you can continue to play by pressing next round and betting.
 ### Rules
 <p> The goal is to hit 21, or to have a number higher than the dealers. If you go over 21, you lose. If the dealer gets 21 right away, you lose. 
