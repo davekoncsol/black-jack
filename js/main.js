@@ -295,7 +295,7 @@ function dealerAction() {
     if (scores.dealer > scores.player) {
         loser();
     }
-    while (winner === false && scores.dealer < 17) {
+    while (winner === false && scores.dealer < 17 && scores.dealer < scores.player) {
         dealerHit();
     }
     if (scores.dealer === 21) {
