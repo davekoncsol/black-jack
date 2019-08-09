@@ -92,16 +92,18 @@ const moneyEl = document.getElementById('money');
 
 //start- click
 
-document.getElementById('stay').addEventListener('click', stay);
+let stayButton = document.getElementById('stay');
+stayButton.addEventListener('click', stay);
+
 document.getElementById('hit').addEventListener('click', hit);
 document.getElementById('start').addEventListener('click', start);
 document.getElementById('next').addEventListener('click', nextRound);
 document.getElementById('deal').addEventListener('click', dealCards);
 
 //bet - click
-document.getElementById('5').addEventListener('click', bet5);
-document.getElementById('10').addEventListener('click', bet10);
-document.getElementById('20').addEventListener('click', bet20);
+document.getElementById('five').addEventListener('click', bet5);
+document.getElementById('ten').addEventListener('click', bet10);
+document.getElementById('twenty').addEventListener('click', bet20);
 
 //reset - click
 
@@ -157,29 +159,29 @@ function render() {
     moneyEl.textContent = `Money = $${money}`;
     betEl.textContent = `Bet = $${bet}`;
 
-    scoreEl.dealer.textContent = `Dealer Number ${scores.dealer}`
-    scoreEl.player.textContent = `Player Number ${scores.player}`
+    scoreEl.dealer.textContent = `DEALER SCORE ${scores.dealer}`
+    scoreEl.player.textContent = `PLAYER SCORE ${scores.player}`
     cardEl.player.innerHTML = `<div class="card shadow ${playerCards.card1}" id="pcard1"><img></div> 
     <div class="card shadow ${playerCards.card2}" id="pcard2"><img></div> ` + templatePlayer;
     cardEl.dealer.innerHTML = `<div class="card shadow ${dealerCards.card1}" id="dcard1"><img></div> 
     <div class="card shadow ${dealerCards.card2}" id="dcard2"><img></div>` + templateDealer;
 
     if (placeBet === false){
-        document.getElementById('5').style.display = 'none';
-    } else {document.getElementById('5').style.display = 'flex'};
+        document.getElementById('five').style.display = 'none';
+    } else {document.getElementById('five').style.display = 'flex'};
     if (placeBet === false){
-        document.getElementById('10').style.display = 'none';
-    } else {document.getElementById('10').style.display = 'flex'};
+        document.getElementById('ten').style.display = 'none';
+    } else {document.getElementById('ten').style.display = 'flex'};
     if (placeBet === false){
-        document.getElementById('20').style.display = 'none';
-    } else {document.getElementById('20').style.display = 'flex'};
+        document.getElementById('twenty').style.display = 'none';
+    } else {document.getElementById('twenty').style.display = 'flex'};
     
     if (canHit === false){
         document.getElementById('hit').style.display = 'none';
     } else {document.getElementById('hit').style.display = 'flex'};
     if (canHit === true && winner === false){
-        document.getElementById('stay').style.display = 'flex';
-    } else {document.getElementById('stay').style.display = 'none'};
+        stayButton.style.display = 'flex';
+    } else {stayButton.style.display = 'none'};
     if (winner === true){
         document.getElementById('next').style.display = 'flex';
     } else {document.getElementById('next').style.display = 'none'};
@@ -260,7 +262,11 @@ function loser() {
     alert('you lost');
     render();
     if (money === 0){
-       document.querySelector('body').innerHTML = `<h1>You LOST EVERYTHING! You could have saved an animal</h1><iframe width="560" height="315" src="https://www.youtube.com/embed/ftJSmtQk8pc?autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
+       document.querySelector('body').innerHTML = `<h1>You LOST EVERYTHING! You could have saved an animal</h1>`
+       setTimeout(function(){
+        window.open("https://www.youtube.com/watch?v=03y-eMIXYpQ");
+
+       }, 3000);
     };
     
 }

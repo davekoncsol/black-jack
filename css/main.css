@@ -3,15 +3,35 @@ html, * {
     box-sizing: border-box;
   }
 
+#action-box button {
+    
+    background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+
+#action-box button:hover {
+    box-shadow: 1px 1px 2px black;
+
+}
 
 
 body {
     
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 10vmin 40vmin 10vmin 40vmin;
-    /* background-color:  #0C6A08; */
-    background: url('images/felt.png') #0C6A08;
+    grid-template-rows: 7vmin 30vmin 7vmin 7vmin 30vmin;
+    background: url('images/felt.png');
+    background-color: #0C6A08;
+    
 }
 
 body *{
@@ -55,17 +75,23 @@ h1 {
 }
 
 #bet-box {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
     align-items: center;
     justify-content: center;
     flex-direction: column;
 }
 
 #bet-box * {
-    margin: 10px;
+    margin: 1px;
+}
+#bet-box:hover * {
+    cursor: pointer;
 }
 
-#total {
+
+#total, #pscore {
     display: flex; 
     grid-column: span 3;
     justify-content: space-evenly;
@@ -83,5 +109,19 @@ h1 {
     margin: 10px;
 }
 
+#five, #ten, #twenty {
+    display: flex;
+    flex-direction: row;
+    background-image: url('images/PinClipart.com_poker-chips-clip-art_1041830.png');
+    background-repeat: no-repeat;
+  background-position: center; 
+  background-size: 60px ;
+  padding: 30px;
+  text-align: center;
+  box-shadow:1px 1px 2px black;
+}
 
+#bet {
+    grid-column: span 3;
+}
 
