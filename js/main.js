@@ -284,7 +284,7 @@ function loser() {
     if (money === 0) {
         document.querySelector('body').innerHTML = `<h1>You LOST EVERYTHING! You could have saved an animal</h1>`
         setTimeout(function () {
-            window.open("https://www.youtube.com/watch?v=03y-eMIXYpQ");
+            window.open("https://www.youtube.com/watch?v=9gspElv1yvc");
 
         }, 3000);
     };
