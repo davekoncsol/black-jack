@@ -134,8 +134,12 @@ function getPlayerScore() {
             } else scores.player += 1;
 
 
-        };
+        } 
+
+         
     }
+ if((playerCards.card1.includes('A') && scores.player > 21) || (playerCards.card2.includes('A') && scores.player > 21)){
+        scores.player -= 10;}
 };
 
 function getDealerScore() {
@@ -151,6 +155,8 @@ function getDealerScore() {
             } else scores.dealer += 1
         };
     }
+    if((dealerCards.card1.includes('A') && scores.dealer > 21) || (dealerCards.card2.includes('A') && scores.dealer > 21)){
+        scores.dealer -= 10;}  
 };
 
 //render
