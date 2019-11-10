@@ -65,7 +65,7 @@ let playerHand = [];
 
 let dealerHand = [];
 
-let usedCards = [];
+
 
 
 /*----- cached element references -----*/
@@ -232,7 +232,6 @@ function getWinner() {
 //bet
 //allows user to place bet
 function bet5() {
-    console.log('bet 5!!')
     while (placeBet === true) {
         if (money >= 5) {
             bet += 5;
@@ -245,7 +244,6 @@ function bet5() {
 }
 
 function bet10() {
-    console.log('bet 10 clicked')
     while (placeBet === true) {
         if (money >= 10) {
             bet += 10;
@@ -258,7 +256,6 @@ function bet10() {
 }
 
 function bet20() {
-    console.log('bet 20 clicked')
     while (placeBet === true) {
         if (money >= 20) {
             bet += 20;
@@ -288,11 +285,8 @@ function loser() {
     alert('you lost');
     render();
     if (money === 0) {
-        document.querySelector('body').innerHTML = `<h1>You LOST EVERYTHING! You could have saved an animal</h1>`
-        setTimeout(function () {
-            window.open("https://www.youtube.com/watch?v=9gspElv1yvc");
-
-        }, 3000);
+        document.querySelector('body').innerHTML = `<h1>You LOST EVERYTHING!</h1>`
+    
     };
 
 }
@@ -321,7 +315,6 @@ function dealerAction() {
 //player hit/stay
 
 function stay() {
-    console.log('stay then the dealer goes. ');
     if (canHit === true && winner === false) {
         dealerCards.card2 = dealerHand[1 + cardPosition].suit + dealerHand[1 + cardPosition].value;
         getDealerScore();
@@ -333,12 +326,13 @@ function stay() {
 
 function hit() {
     if (canHit === true) {
+        idx = Math.floor(Math.random() * 26);
+        console.log(idx)
         playerCards['card' + idx] = playerHand[idx].suit + playerHand[idx].value;
         templatePlayer += `<div class="card shadow ${playerCards['card'+idx]}" id="pcard2"><img></div>`
-        console.log(templatePlayer);
-        idx += 1;
+        
+       
 
-        console.log(idx);
         getPlayerScore();
         render();
         getWinner();
@@ -350,10 +344,9 @@ function dealerHit() {
 
     dealerCards['card' + dealeridx] = dealerHand[dealeridx].suit + dealerHand[dealeridx].value;
     templateDealer += `<div class="card shadow ${dealerCards['card'+dealeridx.toString()]}" id="dcard2"><img></div>`
-    console.log(templateDealer);
     dealeridx += 1;
 
-    console.log(idx);
+
     getDealerScore();
     render();
     getWinner();
@@ -364,7 +357,7 @@ function start() {
     shuffle(newdeck);
     if (playerHand.length < 10) {
         for (i = 0; i <= 25; i++) {
-            // console.log(newdeck[i]);
+        
             playerHand.push(newdeck[i]);
 
         }
