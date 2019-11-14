@@ -198,6 +198,7 @@ function getWinner() {
         chickenDinner();
     } else if (scores.player > 21) {
         messageEl.textContent = 'Bust!'
+        loser();
     }
 }
 
@@ -248,7 +249,7 @@ function chickenDinner() {
     canHit = false;
     bet = 0;
     render();
-    alert('WINNER WINNER CHICKEN DINNER');
+    messageEl.textContent = 'WINNER WINNER CHICKEN DINNER';
 
 }
 
@@ -256,7 +257,7 @@ function loser() {
     bet = 0;
     winner = true;
     canHit = false;
-    alert('you lost');
+    messageEl.textContent = 'You lose';
     render();
     if (money === 0) {
         document.querySelector('body').innerHTML = `<h1>You LOST EVERYTHING!</h1>`
