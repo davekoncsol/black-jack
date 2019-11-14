@@ -85,6 +85,13 @@ const betEl = document.getElementById('bet');
 
 const moneyEl = document.getElementById('money');
 const messageEl = document.getElementById('message');
+const startEl =  document.getElementById('start')
+const hitEl =  document.getElementById('hit')
+const fiveEl =  document.getElementById('five')
+const tenEl =  document.getElementById('ten')
+const twentyEl =  document.getElementById('twenty')
+const nextEl =  document.getElementById('next')
+const dealEl =  document.getElementById('deal')
 
 
 
@@ -96,13 +103,13 @@ const messageEl = document.getElementById('message');
 let stayButton = document.getElementById('stay');
 stayButton.addEventListener('click', stay);
 
-document.getElementById('hit').addEventListener('click', hit);
-document.getElementById('start').addEventListener('click', start);
-document.getElementById('next').addEventListener('click', nextRound);
-document.getElementById('deal').addEventListener('click', dealCards);
+hitEl.addEventListener('click', hit);
+startEl.addEventListener('click', start);
+nextEl.addEventListener('click', nextRound);
+dealEl.addEventListener('click', dealCards);
 
 //bet - click
-document.getElementById('five').addEventListener('click', bet5);
+fiveEl.addEventListener('click', bet5);
 document.getElementById('ten').addEventListener('click', bet10);
 document.getElementById('twenty').addEventListener('click', bet20);
 
@@ -165,60 +172,26 @@ function getDealerScore() {
 function render() {
     moneyEl.textContent = `Money = $${money}`;
     betEl.textContent = `Bet = $${bet}`;
-
     scoreEl.dealer.textContent = `DEALER SCORE ${scores.dealer}`
     scoreEl.player.textContent = `PLAYER SCORE ${scores.player}`
     cardEl.player.innerHTML = `<div class="card shadow ${playerCards.card1}" id="pcard1"><img></div> 
     <div class="card shadow ${playerCards.card2}" id="pcard2"><img></div> ` + templatePlayer;
     cardEl.dealer.innerHTML = `<div class="card shadow ${dealerCards.card1}" id="dcard1"><img></div> 
     <div class="card shadow ${dealerCards.card2}" id="dcard2"><img></div>` + templateDealer;
-    if(bet === 0){ 
-        document.getElementById('start').style.display = 'none';
+    if(bet === 0 && stayButton.style.display === 'flex'){ 
+        startEl.style.display = 'none'
         messageEl.textContent= 'Place a bet to start.'
     } else{
-        document.getElementById('start').style.display = 'flex';
-        messageEl.textContent= 'Good Luck!'
+        startEl.style.display = 'flex';
+        messageEl.textContent = 'Good Luck!'
     }
-
-    if (placeBet === false) {
-        document.getElementById('five').style.display = 'none';
-    } else {
-        document.getElementById('five').style.display = 'flex'
-    };
-    if (placeBet === false) {
-        document.getElementById('ten').style.display = 'none';
-    } else {
-        document.getElementById('ten').style.display = 'flex'
-    };
-    if (placeBet === false) {
-        document.getElementById('twenty').style.display = 'none';
-    } else {
-        document.getElementById('twenty').style.display = 'flex'
-    };
-
-    if (canHit === false) {
-        document.getElementById('hit').style.display = 'none';
-    } else {
-        document.getElementById('hit').style.display = 'flex'
-    };
-    if (canHit === true && winner === false) {
-        stayButton.style.display = 'flex';
-    } else {
-        stayButton.style.display = 'none'
-    };
-    if (winner === true) {
-        document.getElementById('next').style.display = 'flex';
-    } else {
-        document.getElementById('next').style.display = 'none'
-    };
-    if (deal === true && bet > 0) {
-        document.getElementById('deal').style.display = 'flex';
-    } else {
-        document.getElementById('deal').style.display = 'none'
-    };
-
-
-
+    placeBet === false ? fiveEl.style.display = 'none': fiveEl.style.display = 'flex';
+    placeBet === false ? tenEl.style.display = 'none' : tenEl.style.display = 'flex';
+    placeBet === false ? twentyEl.style.display = 'none' : twentyEl.style.display = 'flex';
+    canHit === false ? hitEl.style.display = 'none' :  hitEl.style.display = 'flex';
+    canHit === true && winner === false ? stayButton.style.display = 'flex' : stayButton.style.display = 'none';
+    winner === true ? nextEl.style.display = 'flex' : nextEl.style.display = 'none';
+    deal === true && bet > 0 ? dealEl.style.display = 'flex' : dealEl.style.display = 'none';
 };
 //winner
 //identifies winner is dealer or player
@@ -378,7 +351,7 @@ function start() {
     placeBet = false;
     dealCards();
     deal = false;
-    document.getElementById('start').style.display = 'none';
+    startEl.style.display = 'none';
     render();
     getWinner();
 
