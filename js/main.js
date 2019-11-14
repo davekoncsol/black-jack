@@ -1,17 +1,9 @@
 ///*----- constants -----*/
-
-//sounds
-
-
 let scores, money, bet;
-
-
-
 scores = {
     player: 0,
     dealer: 0
 }
-
 let playerCards = {
     card1: 'back-blue',
     card2: 'back-blue',
@@ -21,7 +13,6 @@ let dealerCards = {
     card1: 'back-red',
     card2: 'back-red',
 }
-
 let idx = 3;
 let cardPosition = 0;
 let dealeridx = 3;
@@ -29,14 +20,10 @@ let canHit = false;
 let deal = true;
 let winner = false;
 let placeBet = true;
-
 var newdeck = [];
-
 let suits = ['s', 'h', 'c', 'd'];
 let values = ['A', 'K', 'Q', 'J', '10', '09', '08', '07', '06', '05', '04', '03', '02'];
-
 var templateDealer = ``;
-
 var templatePlayer = ``;
 
 createDeck();
@@ -62,11 +49,7 @@ function createDeck() {
 // card values
 
 let playerHand = [];
-
 let dealerHand = [];
-
-
-
 
 /*----- cached element references -----*/
 
@@ -82,38 +65,28 @@ const cardEl = {
 }
 
 const betEl = document.getElementById('bet');
-
 const moneyEl = document.getElementById('money');
 const messageEl = document.getElementById('message');
-const startEl =  document.getElementById('start')
-const hitEl =  document.getElementById('hit')
-const fiveEl =  document.getElementById('five')
-const tenEl =  document.getElementById('ten')
-const twentyEl =  document.getElementById('twenty')
-const nextEl =  document.getElementById('next')
-const dealEl =  document.getElementById('deal')
-
-
-
+const startEl = document.getElementById('start')
+const hitEl = document.getElementById('hit')
+const fiveEl = document.getElementById('five')
+const tenEl = document.getElementById('ten')
+const twentyEl = document.getElementById('twenty')
+const nextEl = document.getElementById('next')
+const dealEl = document.getElementById('deal')
+const stayButton = document.getElementById('stay');
 
 /*----- event listeners -----*/
 
-//start- click
 
-let stayButton = document.getElementById('stay');
 stayButton.addEventListener('click', stay);
-
 hitEl.addEventListener('click', hit);
 startEl.addEventListener('click', start);
 nextEl.addEventListener('click', nextRound);
 dealEl.addEventListener('click', dealCards);
-
-//bet - click
 fiveEl.addEventListener('click', bet5);
 tenEl.addEventListener('click', bet10);
 twentyEl.addEventListener('click', bet20);
-
-//reset - click
 
 /*----- functions -----*/
 
@@ -138,10 +111,11 @@ function getPlayerScore() {
             if (scores.player <= 10) {
                 scores.player += 11;
             } else scores.player += 1;
-        }       
+        }
     }
- if((playerCards.card1.includes('A') && scores.player > 21) || (playerCards.card2.includes('A') && scores.player > 21)){
-        scores.player -= 10;}
+    if ((playerCards.card1.includes('A') && scores.player > 21) || (playerCards.card2.includes('A') && scores.player > 21)) {
+        scores.player -= 10;
+    }
 };
 
 function getDealerScore() {
@@ -157,8 +131,9 @@ function getDealerScore() {
             } else scores.dealer += 1
         };
     }
-    if((dealerCards.card1.includes('A') && scores.dealer > 21) || (dealerCards.card2.includes('A') && scores.dealer > 21)){
-        scores.dealer -= 10;}  
+    if ((dealerCards.card1.includes('A') && scores.dealer > 21) || (dealerCards.card2.includes('A') && scores.dealer > 21)) {
+        scores.dealer -= 10;
+    }
 };
 
 //render
@@ -172,17 +147,17 @@ function render() {
     <div class="card shadow ${playerCards.card2}" id="pcard2"><img></div> ` + templatePlayer;
     cardEl.dealer.innerHTML = `<div class="card shadow ${dealerCards.card1}" id="dcard1"><img></div> 
     <div class="card shadow ${dealerCards.card2}" id="dcard2"><img></div>` + templateDealer;
-    if(bet !=0){ 
+    if (bet != 0) {
         startEl.style.display = 'flex'
-        messageEl.textContent= 'Good Luck'
-    } else{
+        messageEl.textContent = 'Good Luck'
+    } else {
         startEl.style.display = 'none';
         messageEl.textContent = 'Place a bet to start'
     }
-    placeBet === false ? fiveEl.style.display = 'none': fiveEl.style.display = 'flex';
+    placeBet === false ? fiveEl.style.display = 'none' : fiveEl.style.display = 'flex';
     placeBet === false ? tenEl.style.display = 'none' : tenEl.style.display = 'flex';
     placeBet === false ? twentyEl.style.display = 'none' : twentyEl.style.display = 'flex';
-    canHit === false ? hitEl.style.display = 'none' :  hitEl.style.display = 'flex';
+    canHit === false ? hitEl.style.display = 'none' : hitEl.style.display = 'flex';
     canHit === true && winner === false ? stayButton.style.display = 'flex' : stayButton.style.display = 'none';
     winner === true ? nextEl.style.display = 'flex' : nextEl.style.display = 'none';
     deal === true && bet > 0 ? dealEl.style.display = 'flex' : dealEl.style.display = 'none';
@@ -202,10 +177,7 @@ function getWinner() {
     }
 }
 
-//start
-//the bet is set let the game BEGIN!
-//bet
-//allows user to place bet
+
 function bet5() {
     while (placeBet === true) {
         if (money >= 5) {
@@ -261,7 +233,7 @@ function loser() {
     render();
     if (money === 0) {
         document.querySelector('body').innerHTML = `<h1>You LOST EVERYTHING!</h1>`
-    
+
     };
 
 }
@@ -373,8 +345,6 @@ function nextRound() {
     scores.dealer = 0;
     templateDealer = ``;
     templatePlayer = ``;
-    // cardEl.player.innerHTML = templatePlayer;
-    // cardEl.dealer.innerHTML = templateDealer;
     playerCards = {
         card1: 'back-blue',
         card2: 'back-blue',
@@ -387,12 +357,4 @@ function nextRound() {
     placeBet = true;
     deal = true;
     render();
-
-
 }
-
-
-
-
-
-
