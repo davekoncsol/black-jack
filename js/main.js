@@ -110,8 +110,8 @@ dealEl.addEventListener('click', dealCards);
 
 //bet - click
 fiveEl.addEventListener('click', bet5);
-document.getElementById('ten').addEventListener('click', bet10);
-document.getElementById('twenty').addEventListener('click', bet20);
+tenEl.addEventListener('click', bet10);
+twentyEl.addEventListener('click', bet20);
 
 //reset - click
 
@@ -132,19 +132,13 @@ function getPlayerScore() {
     for (let card in playerCards) {
         if (playerCards[card].length === 3) {
             scores.player += parseInt(playerCards[card].slice(1));
-
         } else if (playerCards[card].length < 3 && !playerCards[card].includes('A')) {
             scores.player += 10;
-
         } else if (playerCards[card].includes('A')) {
             if (scores.player <= 10) {
                 scores.player += 11;
             } else scores.player += 1;
-
-
-        } 
-
-         
+        }       
     }
  if((playerCards.card1.includes('A') && scores.player > 21) || (playerCards.card2.includes('A') && scores.player > 21)){
         scores.player -= 10;}
@@ -178,12 +172,12 @@ function render() {
     <div class="card shadow ${playerCards.card2}" id="pcard2"><img></div> ` + templatePlayer;
     cardEl.dealer.innerHTML = `<div class="card shadow ${dealerCards.card1}" id="dcard1"><img></div> 
     <div class="card shadow ${dealerCards.card2}" id="dcard2"><img></div>` + templateDealer;
-    if(bet === 0 && stayButton.style.display === 'flex'){ 
-        startEl.style.display = 'none'
-        messageEl.textContent= 'Place a bet to start.'
+    if(bet !=0){ 
+        startEl.style.display = 'flex'
+        messageEl.textContent= 'Good Luck'
     } else{
-        startEl.style.display = 'flex';
-        messageEl.textContent = 'Good Luck!'
+        startEl.style.display = 'none';
+        messageEl.textContent = 'Place a bet to start'
     }
     placeBet === false ? fiveEl.style.display = 'none': fiveEl.style.display = 'flex';
     placeBet === false ? tenEl.style.display = 'none' : tenEl.style.display = 'flex';
@@ -203,8 +197,7 @@ function getWinner() {
     } else if (scores.player === 21) {
         chickenDinner();
     } else if (scores.player > 21) {
-        loser();
-        alert('BUUUUUUSSST');
+        messageEl.textContent = 'Bust!'
     }
 }
 
@@ -308,12 +301,8 @@ function stay() {
 function hit() {
     if (canHit === true) {
         idx = Math.floor(Math.random() * 26);
-        console.log(idx)
         playerCards['card' + idx] = playerHand[idx].suit + playerHand[idx].value;
         templatePlayer += `<div class="card shadow ${playerCards['card'+idx]}" id="pcard2"><img></div>`
-        
-       
-
         getPlayerScore();
         render();
         getWinner();
@@ -322,12 +311,9 @@ function hit() {
 }
 
 function dealerHit() {
-
     dealerCards['card' + dealeridx] = dealerHand[dealeridx].suit + dealerHand[dealeridx].value;
     templateDealer += `<div class="card shadow ${dealerCards['card'+dealeridx.toString()]}" id="dcard2"><img></div>`
     dealeridx += 1;
-
-
     getDealerScore();
     render();
     getWinner();
@@ -338,9 +324,7 @@ function start() {
     shuffle(newdeck);
     if (playerHand.length < 10) {
         for (i = 0; i <= 25; i++) {
-        
             playerHand.push(newdeck[i]);
-
         }
         for (i = 26; i <= 51; i++) {
             dealerHand.push(newdeck[i]);
@@ -368,7 +352,6 @@ function dealCards() {
         playerCards.card1 = playerHand[0 + cardPosition].suit + playerHand[0 + cardPosition].value;
         playerCards.card2 = playerHand[1 + cardPosition].suit + playerHand[1 + cardPosition].value;
         dealerCards.card1 = dealerHand[0 + cardPosition].suit + dealerHand[0 + cardPosition].value;
-
         cardPosition += 1;
         placeBet = false;
         canHit = true;
@@ -389,8 +372,8 @@ function nextRound() {
     scores.dealer = 0;
     templateDealer = ``;
     templatePlayer = ``;
-    cardEl.player.innerHTML = templatePlayer;
-    cardEl.dealer.innerHTML = templateDealer;
+    // cardEl.player.innerHTML = templatePlayer;
+    // cardEl.dealer.innerHTML = templateDealer;
     playerCards = {
         card1: 'back-blue',
         card2: 'back-blue',
@@ -409,33 +392,6 @@ function nextRound() {
 
 
 
-//for each 
-// function getValues(obj, objName){
-//     var result = '';
-//     for (var i in obj) {
-//         if (obj.hasOwnProperty(i)){
-//             result += `${objName}.${obj[i]}\n`
-//         }
-//     }
-//     console.log(result)
-// return result;
-
-// }
 
 
 
-//cards are displayed
-//user places bet
-//money is deducted and rendered
-//start is clicked to play
-//cards are shown to player only 1 card of dealers card is shown
-//player can hit
-//generates another card
-//if over 21 loss
-//if 21 === winner
-//if not can hit or stay again
-//if stay dealer card is revealed
-//if dealer has 21 loss
-//if dealer number > player number === win
-//if dealer number < player number && dealer number < 17 then dealer hit
-//if dealer beat
