@@ -84,6 +84,7 @@ const cardEl = {
 const betEl = document.getElementById('bet');
 
 const moneyEl = document.getElementById('money');
+const messageEl = document.getElementById('message');
 
 
 
@@ -171,6 +172,13 @@ function render() {
     <div class="card shadow ${playerCards.card2}" id="pcard2"><img></div> ` + templatePlayer;
     cardEl.dealer.innerHTML = `<div class="card shadow ${dealerCards.card1}" id="dcard1"><img></div> 
     <div class="card shadow ${dealerCards.card2}" id="dcard2"><img></div>` + templateDealer;
+    if(bet === 0){ 
+        document.getElementById('start').style.display = 'none';
+        messageEl.textContent= 'Place a bet to start.'
+    } else{
+        document.getElementById('start').style.display = 'flex';
+        messageEl.textContent= 'Good Luck!'
+    }
 
     if (placeBet === false) {
         document.getElementById('five').style.display = 'none';
