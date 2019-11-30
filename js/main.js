@@ -229,8 +229,8 @@ function loser() {
     bet = 0;
     winner = true;
     canHit = false;
-    messageEl.textContent = 'You lose';
     render();
+    messageEl.textContent = 'You lose';
     if (money === 0) {
         document.querySelector('body').innerHTML = `<h1>You LOST EVERYTHING!</h1>`
 
