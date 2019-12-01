@@ -25,6 +25,7 @@ let suits = ['s', 'h', 'c', 'd'];
 let values = ['A', 'K', 'Q', 'J', '10', '09', '08', '07', '06', '05', '04', '03', '02'];
 var templateDealer = ``;
 var templatePlayer = ``;
+let startgame = true;
 
 createDeck();
 
@@ -84,9 +85,9 @@ hitEl.addEventListener('click', hit);
 startEl.addEventListener('click', start);
 nextEl.addEventListener('click', nextRound);
 dealEl.addEventListener('click', dealCards);
-fiveEl.addEventListener('click', bet5);
-tenEl.addEventListener('click', bet10);
-twentyEl.addEventListener('click', bet20);
+fiveEl.addEventListener('click', makeBet);
+tenEl.addEventListener('click', makeBet);
+twentyEl.addEventListener('click', makeBet);
 
 /*----- functions -----*/
 
@@ -147,20 +148,21 @@ function render() {
     <div class="card shadow ${playerCards.card2}" id="pcard2"><img></div> ` + templatePlayer;
     cardEl.dealer.innerHTML = `<div class="card shadow ${dealerCards.card1}" id="dcard1"><img></div> 
     <div class="card shadow ${dealerCards.card2}" id="dcard2"><img></div>` + templateDealer;
-    if (bet != 0) {
+    if (bet != 0 && startgame === true) {
         startEl.style.display = 'flex'
         messageEl.textContent = 'Good Luck'
     } else {
         startEl.style.display = 'none';
         messageEl.textContent = 'Place a bet to start'
     }
+
     placeBet === false ? fiveEl.style.display = 'none' : fiveEl.style.display = 'flex';
     placeBet === false ? tenEl.style.display = 'none' : tenEl.style.display = 'flex';
     placeBet === false ? twentyEl.style.display = 'none' : twentyEl.style.display = 'flex';
     canHit === false ? hitEl.style.display = 'none' : hitEl.style.display = 'flex';
     canHit === true && winner === false ? stayButton.style.display = 'flex' : stayButton.style.display = 'none';
     winner === true ? nextEl.style.display = 'flex' : nextEl.style.display = 'none';
-    deal === true && bet > 0 ? dealEl.style.display = 'flex' : dealEl.style.display = 'none';
+    deal === true && bet > 0 && startEl.style.display === 'none' ? dealEl.style.display = 'flex' : dealEl.style.display = 'none';
 };
 //winner
 //identifies winner is dealer or player
@@ -177,36 +179,17 @@ function getWinner() {
     }
 }
 
+// function bet(evt) {
+//     let amount = evt.target.innerText.slice()
+// }
 
-function bet5() {
+function makeBet(evt) {
+    console.log(evt.target.innerText.slice(1,evt.target.innerText.length))
+    let amount = parseInt(evt.target.innerText.slice(1,evt.target.innerText.length))
     while (placeBet === true) {
-        if (money >= 5) {
-            bet += 5;
-            money -= 5;
-            render();
-        }
-        return;
-    }
-    return
-}
-
-function bet10() {
-    while (placeBet === true) {
-        if (money >= 10) {
-            bet += 10;
-            money -= 10;
-            render();
-        }
-        return;
-    }
-    return
-}
-
-function bet20() {
-    while (placeBet === true) {
-        if (money >= 20) {
-            bet += 20;
-            money -= 20;
+        if (money >= amount) {
+            bet += amount;
+            money -= amount;
             render();
         }
         return;
@@ -233,9 +216,7 @@ function loser() {
     messageEl.textContent = 'You lose';
     if (money === 0) {
         document.querySelector('body').innerHTML = `<h1>You LOST EVERYTHING!</h1>`
-
     };
-
 }
 
 function dealerAction() {
@@ -309,6 +290,7 @@ function start() {
     dealCards();
     deal = false;
     startEl.style.display = 'none';
+    startgame = false;
     render();
     getWinner();
 
@@ -316,7 +298,6 @@ function start() {
 
 function shuffle() {
     newdeck.sort(() => Math.random() - 0.5);
-
 }
 
 
